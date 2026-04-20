@@ -27,11 +27,9 @@ site_author = "Scott Simmons"
 # The site_url is the canonical URL for your site. When building online
 # documentation you should set this.
 # Read more: https://zensical.org/docs/setup/basics/#site_url
-# Replace with your real GitHub Pages URL when publishing.
-site_url = "https://example.com/houseoforder-docs/"
+site_url = "https://sksimmons.github.io/HouseOfOrder-Docs/"
 
-# If you publish this repo to GitHub, set repo_url to enable the header link.
-# repo_url = "https://github.com/YOUR_ORG/HouseOfOrder-Docs"
+repo_url = "https://github.com/sksimmons/HouseOfOrder-Docs"
 
 # The copyright notice appears in the page footer and can contain an HTML
 # fragment.
@@ -41,21 +39,21 @@ copyright = """
 Copyright &copy; 2026 Scott Simmons
 """
 
-# Explicit navigation: add pages here when you create them. Content under
-# docs/ios/ is synced from HouseOfOrder-iOS/Docs/ (see ../scripts/sync-ios-docs.sh).
+# Explicit navigation. docs/ios/ is synced from HouseOfOrder-iOS/Docs/ (see scripts/sync-ios-docs.sh).
 #
 # Read more: https://zensical.org/docs/setup/navigation/
 nav = [
   { Home = "index.md" },
-  { Product = [
-    "architecture/index.md",
-  ]},
-  { iOS = [
-    "ios/index.md",
-    "ios/architecture/overview.md",
-  ]},
-  { Android = "android/index.md" },
   { Guides = "guides/index.md" },
+  { Architecture = "architecture/index.md" },
+  { Implementation = [
+    "implementation/index.md",
+    { iOS = [
+      "ios/index.md",
+      "ios/architecture/overview.md",
+    ]},
+    { Android = "android/index.md" },
+  ]},
 ]
 
 # With the "extra_css" option you can add your own CSS styling to customize

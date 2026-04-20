@@ -5,19 +5,22 @@ description: HouseOfOrder product documentation.
 
 # HouseOfOrder documentation
 
-Welcome. This site covers the **HouseOfOrder** family of apps for church building cleaning rotations: coordinator workflows, platform notes, and guides.
+HouseOfOrder helps church cleaning coordinators manage families, generate cleaning assignments, track attendance, and draft notification emails.
 
-## Platforms
+The product is delivered as **native iOS and Android apps** that are intended to match in **look, feel, and behavior**. User-facing documentation here is **one story**—how HouseOfOrder works—not separate manuals per platform.
 
-| Platform | Status | Section |
-| -------- | ------ | ------- |
-| iOS | Active | [iOS](ios/index.md) |
-| Android | Planned | [Android](android/index.md) |
+## Where to read
+
+| Section | Purpose |
+| ------- | ------- |
+| [Guides](guides/index.md) | How coordinators use the app (workflows, imports, troubleshooting). |
+| [Architecture](architecture/index.md) | Product concepts and shared data model across clients. |
+| [Implementation](implementation/index.md) | Per-platform notes for developers (Swift / Kotlin), generated API-style material, and **parity** expectations. |
 
 ## How this site is built
 
-- **Generator:** [Zensical](https://zensical.org/) (Material-compatible, `zensical.toml` in this repo).
-- **iOS content:** Markdown authored under `HouseOfOrder-iOS/Docs/`, then synced into `docs/ios/` so the public repo never needs private submodules for day-to-day work.
+- **Generator:** [Zensical](https://zensical.org/) (`zensical.toml` in this repo).
+- **Implementation pages** under `docs/ios/` are synced from `HouseOfOrder-iOS/Docs/`; Android will follow the same pattern when that repo has a `Docs/` tree.
 
 ## Local preview
 

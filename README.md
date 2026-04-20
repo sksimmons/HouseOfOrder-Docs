@@ -15,15 +15,15 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Sync iOS Markdown
+## Sync iOS implementation docs
 
-iOS documentation is authored in `../HouseOfOrder-iOS/Docs/`. Copy it into this site before building or serving:
+**User-facing** copy lives here under `docs/guides/` and `docs/architecture/`. **iOS-specific implementation** Markdown is authored in `../HouseOfOrder-iOS/Docs/` and copied into `docs/ios/` before build:
 
 ```bash
 ./scripts/sync-ios-docs.sh
 ```
 
-Commit the updated `docs/ios/` files in this repo when you want the published site to pick them up (keeps GitHub Actions simple: no access to private repos required).
+Commit the updated `docs/ios/` files when you want the published site to pick them up (CI does not clone the app repo).
 
 ## Preview locally
 

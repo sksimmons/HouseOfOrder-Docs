@@ -1,12 +1,13 @@
 # HouseOfOrder documentation framework
 
-This file is the working plan for how documentation is structured across the HouseOfOrder workspace. It replaces the earlier draft that mixed Grok output with placeholder text.
+Working plan for documentation across the HouseOfOrder workspace.
 
 ## Goals
 
 - **Public site** from `HouseOfOrder-Docs` only (no private app source on GitHub Pages).
-- **Single workspace** in Cursor: edit iOS (or later Android) Markdown and the static site together.
-- **Flexible**: add pages and nav entries as you go; swap generators later if needed (Zensical aims for MkDocs-style config compatibility).
+- **Single workspace** in Cursor: edit app repos and the static site together.
+- **One product story** for coordinators: [Guides](docs/guides/index.md) and [Architecture](docs/architecture/index.md) describe behavior **once**, for all native clients.
+- **Per-client implementation** under [Implementation](docs/implementation/index.md): `docs/ios/` (synced from iOS), later `docs/android/`, for Swift/Kotlin, docstrings, and parity checks—not duplicate user manuals.
 
 ## Tooling
 
@@ -14,64 +15,54 @@ This file is the working plan for how documentation is structured across the Hou
 | ----- | ------ |
 | Static site generator | **Zensical** (`zensical.toml` in `HouseOfOrder-Docs`) |
 | Python | **3.10+** (see `requirements.txt`; avoid macOS/Xcode 3.9 for installs) |
-| Theme | Zensical default (“modern” variant); switch to `classic` in `[project.theme]` if you want classic Material look |
+| Theme | Zensical default (“modern” variant); `classic` in `[project.theme]` if you want classic Material look |
 
-MkDocs is not required. Zensical reads Markdown, uses a Material-compatible theme, and is actively developed by the same folks who built Material for MkDocs.
-
-## Repository layout (this monorepo)
+## Repository layout (monorepo)
 
 ```text
 HouseOfOrder/
-├── HouseOfOrder-iOS/          # private app repo (when split)
-│   └── Docs/                  # SOURCE: public-facing iOS Markdown
-├── HouseOfOrder-Android/      # future Android port
-│   └── Docs/                  # future: same pattern as iOS
-└── HouseOfOrder-Docs/         # public docs repo (when split)
+├── HouseOfOrder-iOS/
+│   └── Docs/                  # SOURCE → synced to docs/ios/ (implementation)
+├── HouseOfOrder-Android/
+│   └── Docs/                  # future: sync to docs/android/
+└── HouseOfOrder-Docs/
     ├── zensical.toml
     ├── requirements.txt
-    ├── docs/                  # SITE ROOT (plus generated copies)
-    │   ├── index.md
-    │   ├── architecture/
-    │   ├── android/
-    │   ├── guides/
-    │   └── ios/               # COPIED from HouseOfOrder-iOS/Docs by sync script
+    ├── docs/
+    │   ├── index.md           # product home
+    │   ├── guides/            # user-facing, platform-agnostic
+    │   ├── architecture/    # product model, shared across clients
+    │   ├── implementation/  # explains dev vs user split + parity
+    │   ├── ios/             # COPIED from HouseOfOrder-iOS/Docs
+    │   └── android/         # hand-written or synced later
     └── scripts/
         └── sync-ios-docs.sh
 ```
 
 ## Authoring workflow
 
-1. **Product / cross-platform pages** — Edit files under `HouseOfOrder-Docs/docs/` (e.g. `architecture/`, `guides/`, `android/`).
-2. **iOS-specific public docs** — Edit under `HouseOfOrder-iOS/Docs/`.
-3. **Sync** — From `HouseOfOrder-Docs`, run `./scripts/sync-ios-docs.sh` so `docs/ios/` matches the iOS repo.
-4. **Preview** — `zensical serve` (after `pip install -r requirements.txt` in a venv).
-5. **Commit** — Commit both the iOS `Docs/` changes and the synced `HouseOfOrder-Docs/docs/ios/` files when you want the published site updated. CI does **not** clone the private iOS repo; it only builds what is in the docs repo.
+1. **Coordinators / “how it works”** — Edit `HouseOfOrder-Docs/docs/guides/` and product `architecture/` in the docs repo.
+2. **iOS implementation** — Edit `HouseOfOrder-iOS/Docs/`, then run `./scripts/sync-ios-docs.sh` so `docs/ios/` matches.
+3. **Preview** — `zensical serve` (after `pip install -r requirements.txt` in a venv).
+4. **Commit** — Commit docs-repo changes; when iOS `Docs/` changes, commit both the iOS repo and the synced `docs/ios/` if you want CI/Pages updated without cloning private repos.
 
-Internal-only material stays in `_Design_Docs/` (or similar) inside the iOS project until you deliberately promote it into `Docs/`.
+Internal-only material stays in `_Design_Docs/` until you promote it.
 
 ## Navigation
 
-Top-level nav is **explicit** in `zensical.toml` (`[project] nav`). When you add pages:
-
-- Add the Markdown file under `docs/` (or under `HouseOfOrder-iOS/Docs/` and sync).
-- Add the path to `nav` in `zensical.toml`.
-
-Alternatively, comment out `nav` and rely on **implicit** navigation from the folder tree (Zensical default).
+Explicit `nav` in `zensical.toml`: Home → Guides → Architecture → Implementation (hub + iOS + Android). Adjust as you add pages.
 
 ## CI / GitHub Pages
 
-`.github/workflows/docs.yml` runs on push to `main` or `master`: install Zensical, `zensical build --clean`, deploy `site/` to GitHub Pages.
-
-Before going live, set **`site_url`** (and optionally **`repo_url`**) in `zensical.toml` to your real URLs. Instant navigation and search features expect a proper `site_url`.
+`.github/workflows/docs.yml` on push to `main` or `master`: install Zensical, `zensical build --clean`, deploy `site/`.
 
 ## Future extensions
 
 | Topic | Direction |
 | ----- | --------- |
-| Android | Add `HouseOfOrder-Android/Docs/` and `scripts/sync-android-docs.sh` mirroring iOS. |
-| API / code reference | Swift: Jazzy or hand-written summaries linked from `docs/ios/`. Kotlin: Dokka later. |
-| Python | Only if shared Python appears; then consider docstring plugins once Zensical exposes an equivalent. |
+| Android sync | `HouseOfOrder-Android/Docs/` + `sync-android-docs.sh` → `docs/android/` |
+| API reference | Jazzy / Dokka output linked from implementation sections |
 
 ## Refactoring away from Zensical
 
-Config is **`zensical.toml`** with MkDocs-style concepts. If you ever move to plain MkDocs or another tool, much of the content (Markdown, nav ideas) transfers; only the config file and build commands change.
+Config is **`zensical.toml`**. Markdown and structure transfer; only build commands change if you switch tools.
