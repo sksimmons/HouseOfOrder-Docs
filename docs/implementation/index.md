@@ -20,4 +20,5 @@ If the **product** docs say the app behaves a certain way, both clients should m
 ## Contents
 
 - [iOS](ios/index.md) — notes and structure for the Swift/SwiftUI app (synced from the iOS repo).
+- [Swift API (Jazzy)](../api/) — generated HTML from the iOS target (not Markdown; produced in CI).
 - [Android](android/index.md) — Kotlin implementation notes when the Android project is underway.

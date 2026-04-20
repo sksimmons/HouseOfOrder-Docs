@@ -15,7 +15,8 @@ The product is delivered as **native iOS and Android apps** that are intended to
 | ------- | ------- |
 | [Guides](guides/index.md) | How coordinators use the app (workflows, imports, troubleshooting). |
 | [Architecture](architecture/index.md) | Product concepts and shared data model across clients. |
-| [Implementation](implementation/index.md) | Per-platform notes for developers (Swift / Kotlin), generated API-style material, and **parity** expectations. |
+| [Implementation](implementation/index.md) | Per-platform notes for developers (Swift / Kotlin), **parity** expectations, and links to generated API docs. |
+| [Swift API (Jazzy)](api/) | HTML reference generated from iOS `///` comments (updated on each site deploy). |
 
 ## How this site is built
 
