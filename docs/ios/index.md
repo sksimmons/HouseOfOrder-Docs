@@ -20,7 +20,8 @@ Swift/SwiftUI client for HouseOfOrder. **Product** behavior—what users see and
 
 ## API reference (Swift)
 
-Run **Jazzy** locally to build HTML from `///` doc comments in the app target. See [jazzy.md](jazzy.md).
+- **On the site:** [Swift API (Jazzy)](https://sksimmons.github.io/HouseOfOrder-Docs/api/) — generated from `///` comments on each docs deploy (same tree as local `Docs/jazzy-output/`).
+- **Locally:** run Jazzy as in [jazzy.md](jazzy.md) to preview before pushing.
 
 ## Source and sync
 

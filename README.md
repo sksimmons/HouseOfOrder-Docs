@@ -23,7 +23,7 @@ pip install -r requirements.txt
 ./scripts/sync-ios-docs.sh
 ```
 
-Commit the updated `docs/ios/` files when you want the published site to pick them up (CI does not clone the app repo).
+Commit the updated `docs/ios/` files when you want the Markdown on the site to match your iOS repo (CI also clones `HouseOfOrder-iOS` to run **Jazzy**; see below).
 
 ## Preview locally
 
@@ -43,7 +43,16 @@ Output is written to `site/`.
 
 ## Publishing
 
-GitHub Actions (`.github/workflows/docs.yml`) builds and deploys to GitHub Pages on push to `main` or `master`. Set **site_url** and optionally **repo_url** in `zensical.toml` when you know the real Pages URL and repository.
+GitHub Actions (`.github/workflows/docs.yml`) runs on **`macos-latest`**, then:
+
+1. Builds the Zensical site into `site/`.
+2. Checks out **`HouseOfOrder-iOS`**, runs **Jazzy**, and copies HTML into **`site/api/`** (live URL: `https://sksimmons.github.io/HouseOfOrder-Docs/api/`).
+
+Push to `main` or `master`. Set **site_url** and **repo_url** in `zensical.toml` as needed.
+
+### GitHub secret (private iOS repo)
+
+If **`HouseOfOrder-iOS` is private**, add a repository secret named **`HOUSEOFORDER_IOS_CHECKOUT`** in **HouseOfOrder-Docs** → *Settings* → *Secrets and variables* → *Actions*: a fine-grained PAT with **Contents: Read** on that repo. **Public** iOS repos do not need this secret.
 
 ## Android
 

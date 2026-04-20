@@ -54,7 +54,7 @@ Explicit `nav` in `zensical.toml`: Home → Guides → Architecture → Implemen
 
 ## CI / GitHub Pages
 
-`.github/workflows/docs.yml` on push to `main` or `master`: install Zensical, `zensical build --clean`, deploy `site/`.
+`.github/workflows/docs.yml` on push to `main` or `master` (runs on **macOS**): install Zensical, `zensical build --clean`, clone **HouseOfOrder-iOS**, run **Jazzy**, merge HTML into `site/api/`, deploy `site/`. If the iOS repo is private, set secret **`HOUSEOFORDER_IOS_CHECKOUT`** on the docs repo (PAT with read access to iOS).
 
 ## Future extensions
 

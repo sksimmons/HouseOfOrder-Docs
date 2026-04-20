@@ -1,4 +1,6 @@
 site/
+# Local Jazzy HTML (CI generates into site/api/; do not commit under docs/)
+**/jazzy-output/
 .venv/
 __pycache__/
 *.pyc
