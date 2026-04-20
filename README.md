@@ -50,9 +50,18 @@ GitHub Actions (`.github/workflows/docs.yml`) runs on **`macos-latest`**, then:
 
 Push to `main` or `master`. Set **site_url** and **repo_url** in `zensical.toml` as needed.
 
-### GitHub secret (private iOS repo)
+### GitHub secret (**required** if `HouseOfOrder-iOS` is private)
 
-If **`HouseOfOrder-iOS` is private**, add a repository secret named **`HOUSEOFORDER_IOS_CHECKOUT`** in **HouseOfOrder-Docs** → *Settings* → *Secrets and variables* → *Actions*: a fine-grained PAT with **Contents: Read** on that repo. **Public** iOS repos do not need this secret.
+The workflow clones the iOS repo to run Jazzy. GitHub does not allow that without a **personal access token** stored on **this** repo (`HouseOfOrder-Docs`).
+
+1. Create a **fine-grained PAT**: GitHub → **Settings** → **Developer settings** → **Personal access tokens** → *Fine-grained tokens* → **Generate new token**.
+2. **Resource owner:** your account. **Repository access:** only **`HouseOfOrder-iOS`**.
+3. **Permissions:** *Repository permissions* → **Contents:** **Read-only**.
+4. Generate the token and copy it once.
+5. Open **`HouseOfOrder-Docs`** on GitHub → **Settings** → **Secrets and variables** → **Actions** → **New repository secret**.
+6. Name: **`HOUSEOFORDER_IOS_CHECKOUT`** — paste the PAT → **Add secret**.
+
+Re-run the failed workflow (or push any commit). A **public** `HouseOfOrder-iOS` repo would not need this, but yours is private—this step is mandatory.
 
 ## Android
 

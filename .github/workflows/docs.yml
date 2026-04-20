@@ -29,13 +29,21 @@ jobs:
       - name: Checkout docs repo
         uses: actions/checkout@v4
 
+      # actions/checkout requires a non-empty token to clone another *private* repo; unset secret => hard error.
+      - name: Require PAT for private HouseOfOrder-iOS clone
+        env:
+          IOS_PAT: ${{ secrets.HOUSEOFORDER_IOS_CHECKOUT }}
+        run: |
+          if [ -z "$IOS_PAT" ]; then
+            echo "::error::Add repository secret HOUSEOFORDER_IOS_CHECKOUT on HouseOfOrder-Docs (fine-grained PAT, Contents: Read on sksimmons/HouseOfOrder-iOS). See README.md → Publishing."
+            exit 1
+          fi
+
       - name: Checkout iOS app (for Jazzy)
         uses: actions/checkout@v4
         with:
           repository: sksimmons/HouseOfOrder-iOS
           path: ios-src
-          # Private iOS repo: add repository secret HOUSEOFORDER_IOS_CHECKOUT (fine-grained PAT, Contents: Read).
-          # Public iOS repo: leave secret unset (empty token is fine for public clones).
           token: ${{ secrets.HOUSEOFORDER_IOS_CHECKOUT }}
 
       - uses: actions/setup-python@v5
