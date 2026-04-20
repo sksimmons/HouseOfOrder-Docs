@@ -1,0 +1,2 @@
+# Zensical requires Python 3.10+ (https://pypi.org/project/zensical/)
+zensical>=0.0.33,<0.1
