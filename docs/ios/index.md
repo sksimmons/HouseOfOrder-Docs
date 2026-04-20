@@ -18,6 +18,10 @@ Swift/SwiftUI client for HouseOfOrder. **Product** behavior—what users see and
 - [Implementation hub](https://sksimmons.github.io/HouseOfOrder-Docs/implementation/) — how per-client docs fit together
 - [Architecture overview](architecture/overview.md) — iOS stack and layering (SwiftUI, SwiftData)
 
+## API reference (Swift)
+
+Run **Jazzy** locally to build HTML from `///` doc comments in the app target. See [jazzy.md](jazzy.md).
+
 ## Source and sync
 
 This content is edited in **HouseOfOrder-iOS** under `Docs/` and copied into the public docs repo with `scripts/sync-ios-docs.sh`. Internal design notes stay in `_Design_Docs/` unless promoted here.
